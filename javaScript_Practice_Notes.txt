@@ -1,0 +1,1523 @@
+DOM
+__________________________________________
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- e.Given the names and marks of students in Maths and Computers
+    i.Show the data in a table
+    ii.Highlight marks >=75 and those <=50
+    iii.Highlight the students with total>=150 or <=100
+    iv.Clear the highlights in b and c
+    v.Sort the table on the field clicked in the header
+    vi.Adda remove button in each row. Clicking on that button removes the student -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+        .table1
+        { 
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .td1
+        { 
+            border: 1px solid black;
+           font-weight: bold;
+            text-align: center;
+        }
+        .th1
+        { 
+            background-color: black;
+            color:white;
+            border: 1px solid white;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .score75 , .total150
+        {
+            background-color: cadetblue;
+            font-weight: bold;
+
+        }
+        .score50 , .total100
+        {
+            background-color: brown;
+            font-weight: bold;
+        }
+        .remBtn
+        {
+            background-color: orangered;
+            color: black;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Students</h2>
+    <div id="students"></div>
+    <button onclick="showStudents()">Show Students</button>
+    <button onclick="highMarks()">Highlights Marks</button>
+    <button onclick="highStudents()"> Highlight Students</button>
+    <button onclick="clearStyle()">Clear</button>
+    <script>
+        let highlightMarks=false;
+        let  highlightStudents=false;
+        let students=[
+            {name:'Surbhi',math:80,computer:89},
+            {name:'Gaurav',math:75,computer:67},
+            {name:'Khushi',math:79,computer:75},
+            {name:'Tanuj',math:50,computer:60}
+        
+        ];
+        function showStudents(){
+            let arr1=students.map(function(ele){
+                let str='<tr class=\''+getClassastudent(ele)+'\'>';
+                    str+='<td class=\'td1\'>'+ele.name+'</td>';
+                    str+='<td class=\''+getClassMarks(ele.math)+'\'>'+ele.math+'</td>'
+                    str+='<td class=\''+getClassMarks(ele.computer)+'\'>'+ele.computer+'</td>'
+                    
+                    str+='<td><button class=\'remBtn\' onclick="remove(\''+ele.name+'\')">Remove</button></td>';
+                    console.log(str)
+                    str+='</tr>'
+                    return str;
+            })
+            let header='<tr>' 
+                header+='<th class="th1" onclick=\'sort(0)\'>Name </th>'
+                header+='<th class="th1" onclick=\'sort(1)\'>Math </th>'
+                header+='<th class="th1" onclick=\'sort(2)\'>Computer</th>'
+                header+='<th class=\'th1\'></th>'
+                header+='</tr>'
+                let html='<table class="table1">'+header+arr1.join('')+'</header>'
+                    console.log(html)
+                    let element=document.getElementById("students")
+                    element.innerHTML=html;
+        }
+        function getClassMarks(marks){
+            if (marks>=75&& highlightMarks)
+            return 'td1 score75';
+        else if (marks<=50&&highlightMarks)
+        return 'td1 score50';
+    else 
+    return 'td1';
+        }
+        function getClassastudent(st){
+            let total = st.math +st.computer;
+            if(total>=150 && highlightStudents)
+            return 'total150'
+        else if (total<=100 && highlightStudents)
+           return 'total100';
+        else 
+        return '';
+        }
+        function highMarks(){
+            highlightMarks=true;
+            highlightStudents=false;
+            showStudents();
+        }
+        function highStudents(){
+            highlightMarks=false;
+            highlightStudents=true;
+            showStudents();
+        }
+        function clearStyle(){
+            highlightMarks=false;
+            highlightStudents=false;
+            showStudents();
+
+        }
+        function sort(colno){
+            if(colno==0)
+            students.sort(sortName)
+        else if (colno==1)
+        students.sort(sortMath)
+    else
+    students.sort(sortComputer)
+showStudents()
+        }
+        function sortName(st1,st2){
+            return st1.name.localeCompare(st2.name)
+        }
+        function sortMath(st1,st2){
+            return st1.math-st2.math
+        }
+        function sortComputer(st1,st2){
+            return st1.computer-st2.computer
+        }
+        function remove(name){
+            let index = students.findIndex(function(st){
+                return st.name==name;
+            })
+            students.splice(index,1)
+            console.log(students)
+            showStudents();
+            
+        }
+    </script>
+</body>
+</html>
+
+
+__________________________________________________________________________________________________________________
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <style>
+            
+                .table1 {
+            border: 2px solid black;
+            border-collapse: none;
+            margin-bottom: 10px;
+                }
+        .table2 {
+            border: 2px solid white;
+            border-collapse: none;
+            margin-bottom: 10px;
+            background-color: white;
+            color: black;
+          
+        }
+        .france {
+            background-color: red;
+            color: white;
+            border: 1px black;
+          
+        }
+
+        .india {
+            background-color: blue;
+            color: white;
+            border:1px black;
+            
+           
+        }
+
+        .usa{
+            background-color:green;
+            color: white;
+            border: 1px black;
+        
+        }
+        .green{
+            background-color:green;
+            color: white;
+            border: 1px black;
+        
+        }
+        .red{
+            background-color:red;
+            color: white;
+            border: 1px black;
+        
+        }
+        .blue{
+            background-color:blue;
+            color: white;
+            border: 1px black;
+        
+        }
+
+        .hidden {
+            display: none;
+
+        }
+        .xyz {
+background-color: aqua;
+        }
+        .tdStyle{
+            border: 1px solid black;
+            border-collapse: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>PERSONS DETAILS </h2>
+    <div id='persons'></div>
+    <button onclick='showAllData()'>Show Data</button>
+    <button onclick='hideData()'>Hide Data </button>
+    <button onclick='india()'>India</button>
+    <button onclick='usa()'>Usa</button>
+    <button onclick='france()'>France</button>
+    <br>
+    <button onclick='styleByCountry(persons)'>Style By Country</button>
+    <button onclick='styleByAge(persons)'>Style By Age</button>
+</br>
+
+
+    <script>
+        let persons = [
+        { "name": "Jack", "country": "USA", "age": 35 },
+        { "name": "Amit", "country": "India", "age": 38 },
+        { "name": "Edward", "country": "USA", "age": 41 },
+        { "name": "Vishal", "country": "India", "age": 30 },
+        { "name": "Annie", "country": "USA", "age": 27 },
+        { "name": "Nick", "country": "France", "age": 32 },
+        { "name": "Francis", "country": "France", "age": 44 },
+        { "name": "Preeti", "country": "India", "age": 25 },
+        { "name": "Sophie", "country": "France", "age": 29 },
+        { "name": "Harpreet", "country": "India", "age": 48 },
+        { "name": "Bob", "country": "USA", "age": 21 }]
+
+        function showAllData(){
+          showData(persons)
+        }
+
+        function showData(personsArray) {
+
+            let arr = personsArray.map(function (ele) {
+                
+                let str = '';
+                str += '<td class="tdStyle">' + ele.name + '</td>';
+                str += '<td class="tdStyle">' + ele.age + '</td>';
+                str += '<td class="tdStyle">' + ele.country + '</td>';
+                str += '</tr>';
+                return str;
+
+            });
+
+            let header = '<tr >';
+            header += '<th onclick="sortTable(0)"  >Name</th>';
+            header += '<th onclick="sortTable(1)" >Age</th>'
+            header += '<th onclick="sortTable(2)" >Country</th>'
+            header += '</tr>';
+            let html = '<table class="table1">' + header + arr.join('') + '</table>'
+            let element = document.getElementById('persons');
+            element.innerHTML = html;
+        }
+//*******************
+        function hideData() {
+            let header = '<tr>';
+
+            header += '<th >Name</th>';
+            header += '<th >Age</th>'
+            header += '<th >Country</th>'
+            header += '</tr>';
+            let html = '<table class="hidden"></table>'
+            let element = document.getElementById('persons');
+            element.innerHTML = html;
+
+        }
+        function sortTable(colno) {
+            if (colno == 0) {
+                persons.sort(sortName)
+            }
+            else if (colno == 1) {
+                persons.sort(sortAge)
+            }
+            if (colno == 2) {
+                persons.sort(sortCountry)
+            }
+            showData(persons)
+        }
+          
+     
+
+            function sortName(st1, st2) {
+                return st1.name.localeCompare(st2.name)
+            }
+            function sortAge(st1, st2) {
+                return st1.age - st2.age
+            }
+            function sortCountry(st1, st2) {
+                return st1.country.localeCompare(st2.country)
+            }
+            function india(){
+        
+             let filteredIndiaPersons =persons.filter(country);
+            
+               console.log('persons::>',persons);
+               showData(filteredIndiaPersons);
+            }
+
+//*******************
+        function country(countryName){
+            if (countryName.country=='India'){
+                return countryName;
+            }
+        }
+        function usa(){
+          console.log('personsUsa::>',persons)
+          let filtereUsaPersons=persons.filter(countryUsa);
+            showData(filtereUsaPersons);
+        }
+        function countryUsa(countryName){
+            if(countryName.country=='USA'){
+                return countryName;
+            }
+        }
+        function france(){
+             console.log('personsUsa::>',persons)
+          let filtereFrancePersons=persons.filter(countryfrance);
+            showData(filtereFrancePersons);
+        }
+        function countryfrance(countryName){
+            if(countryName.country=='France'){
+                return countryName;
+            }
+        }
+//*******************
+        function styleByCountry(personsArray) {
+            let arr = personsArray.map(function (persons) {
+
+         console.log('Style By Country::>',persons) 
+    
+    let str = '';
+    if (persons.country=='India'){
+        str+='<tr class=india>'
+    }
+    else if(persons.country=='USA'){
+        str+='<tr class="usa">'
+    }
+    else{
+        str+='<tr class="france">'
+    }
+    
+    str += '<td >' + persons.name + '</td>';
+    str += '<td >' + persons.age + '</td>';
+    str += '<td >' + persons.country + '</td>';
+    str += '</tr>';
+    return str;
+    console.log(str)
+        })
+        let header = '<tr class="xyz">';
+            header += '<th onclick="sortTable(0)"  >Name</th>';
+            header += '<th onclick="sortTable(1)" >Age</th>'
+            header += '<th onclick="sortTable(2)" >Country</th>'
+            header += '</tr>';
+            let html = '<table class="table2">' + header + arr.join('') + '</table>'
+            let element = document.getElementById('persons');
+            element.innerHTML = html;
+
+};
+//*******************
+function styleByAge(personsArray) {
+            let arr = personsArray.map(function(persons) {
+
+         console.log('Style By Age::>',persons) 
+         let str = '';
+    if (persons.age<= 30){
+        str+='<tr class="green">'
+    }
+    else if(persons.age>30 &&persons.age<=40){
+        str+='<tr class="blue">'
+    }
+    else{
+        str+='<tr class="red">'
+    }
+    
+    str += '<td >' + persons.name + '</td>';
+    str += '<td >' + persons.age + '</td>';
+    str += '<td >' + persons.country + '</td>';
+    str += '</tr>';
+    return str;
+    console.log(str)
+        })
+        let header = '<tr class="xyz">';
+            header += '<th onclick="sortTable(0)"  >Name</th>';
+            header += '<th onclick="sortTable(1)" >Age</th>'
+            header += '<th onclick="sortTable(2)" >Country</th>'
+            header += '</tr>';
+            let html = '<table class="table2">' + header + arr.join('') + '</table>'
+            let element = document.getElementById('persons');
+            element.innerHTML = html;
+
+};
+
+function remove(name){
+            let index = persons.findIndex(function(persons){
+                return persons.name==name;
+            })
+            persons.splice(index,1)
+            console.log(persons)
+            showData(persons);
+            
+        }
+
+//****************************************
+function add1InAge(name){
+
+          console.log('name::>',name)
+          let index = persons.findIndex(function(person){
+            console.log(person)
+
+                return person.name==name;
+              })
+            console.log(index)
+            console.log(persons[index].age)
+            persons[index].age=persons[index].age+1;
+            console.log(persons)
+            showData(persons)
+        }
+
+    
+</script>
+</body>
+</html>
+
+____________________________________________________________________________________________________
+
+LIKES   && DISLIKES************************
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+
+    <!-- a)Show the details of ridersand feedbackwith the like button
+     b)Add the remove button to the rows in the feedback table
+     c)Likes and Dislikes -->
+   
+      <link rel= "stylesheet" href="dummy.css">
+   
+   
+</head>
+<body>
+    <div id="showdata"></div>
+<script>
+        let riders=[
+            {rider:'Jack',store:'Domino'},
+            {rider:'Bob',store:'McDonalds'},
+            {rider:'George',store:'Pizza Hut'},
+            {rider:'Steve',store:'Burger King'},
+        ]
+            
+            let feedback=[];
+
+            show();
+            function show(){
+                let s1=showRiders()
+                let s2=showFeedback()
+                let element = document.getElementById("showdata");
+                element.innerHTML = s1+s2;
+            }
+
+function showRiders(){
+   let rMap= riders.map(function(ele){
+    str= '<tr>'
+        str+= '<td class="col1">'+ele.rider+'</td>';
+        str+= '<td class="col1">'+ele.store+'</td>';
+        str+='<td class="col1"><button class="like" onclick= "like(\'' + ele.rider
+             + '\', true)">Like</button><button class="dislike" onclick="like(\'' + ele.rider + '\', false)">DisLike</button></td>';
+        str+='</tr>'
+      console.log(str)
+        return str;
+   })
+   let header = '<tr>'
+    header+= '<th class="th1">Name</th>'
+        header+= '<th class="th1">Store</th>'
+         header+= '<th class="th1">  </th>'
+        header+='</tr>'
+        let html = '<h2>List of Riders</h2>'
+         html += '<table class="table1">' + header + rMap.join('') + '</table>';
+          return html;
+}
+// *****************************************
+
+function remove(rider){
+    console.log('feedback::>',feedback)
+    let index=feedback.findIndex(function(ele){
+       
+        return  ele.rider==rider;
+    })
+    if(index>=0)
+        feedback.splice(index,1)
+    show();
+}
+showFeedback()
+// ***************************************
+function showFeedback(){
+    let fMap= feedback.map(function(ele){
+         str='<tr>'
+         str+= '<td class="col1">'+ele.rider+'</td>';
+        str+= '<td class="col1">'+ele.store+'</td>';
+        str+= '<td class="col1">'+ele.likes+'</td>';
+        str+= '<td class="col1">'+ele.dislikes+'</td>';
+        str+='<td class="col1"><button class="remove" onclick= remove(\''+ele.rider+'\')>Remove</button></td>';
+        str+='</tr>';
+        //  console.log(str)
+        return str;
+   })
+   let header = '<tr>'
+    header+= '<th class="th1">Name</th>';
+        header+= '<th class="th1">Store</th>';
+         header+= '<th class="th1">Likes</th>';
+         header+= '<th class="th1">DisLikes</th>';
+          header+= '<th class="th1"> </th>'
+        header+='</tr>';
+        let html = '<h2>Details Of Likes</h2>';
+        if(feedback.length==0)
+       html += '<h3>No Feedback Has Been Recieved</h3>';
+    else{
+    let countLikes=feedback.reduce(function(acc,curr){
+            return acc+curr.likes
+    },0);
+    let countDislikes=feedback.reduce(function(acc,curr){
+            return acc+curr.dislikes
+    },0);
+    html += '<h3>number of likes: '+countLikes+' number of dislikes: '+countDislikes+'</h3>';
+
+        html += '<table class="table1">' + header + fMap.join('') + '</table>'
+}
+         return html;
+}
+function like(rider, islike){
+    let r1=feedback.find(function(ele){
+    return ele.rider== rider
+   })
+   if (r1){
+    if(islike)
+    r1.likes++;
+else
+r1.dislikes++;
+}
+   else{
+    let rider1=riders.find(function(ele){
+        return ele.rider == rider;
+    } )
+    let item = {rider:rider1.rider,store:rider1.store,likes:0,dislikes:0}
+    if(islike)
+    item.likes=1;
+else
+item.dislikes=1;
+    feedback.push(item)
+   } 
+ console.log(feedback)
+ show();
+}
+
+    </script> 
+</body>
+</html>
+__________________________________________________________________________
+__________________________________________________________________________
+QUIZSHOW
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Contestants are taking part in a quiz show. 
+    In the quiz show you can get +2 or -1 depending on whether your answer was correct or not.
+    Initially all the players have a score of 0.
+     Note that the background color is different depending on whether the score of a contestant is 0, 
+     greater than 0 or less than 0.You are given an array of JSON
+      [ {name:“Einstein”, score:0},{name:“Newton”, score:0},{name:“Edison”, score:0}] -->
+   
+      <link rel= "stylesheet" href="dummy.css">
+   
+</head>
+<body>
+    <div id="showdata"></div>
+<script>
+        let contestants=[ 
+        {name:'Einstein', score:0},
+        {name:'Newton', score:0},
+        {name:'Edison', score:0},
+    ]
+   
+
+
+    function show(){
+        let s1=showContestent()
+    
+        let element=document.getElementById("showdata")
+        element.innerHTML = s1;
+    }
+
+
+        function showContestent(){
+       let cMap = contestants.map(function(ele){
+        let str='<tr class=\''+getStyleByScore(ele)+'\' id="'+ele.name+'">';
+            str+='<td >'+ele.name+'</td>';
+                str+='<td>'+ele.score+'</td>';
+                str+='<td ><button onclick="rightans(\''+ele.name+'\')">+2</button></td>';
+                str+='<td><button onclick="wrongans(\''+ele.name+'\')">-1</button></td>';
+                str+='</tr>';
+            //   console.log(str)
+                return str;
+       })
+        let html = '<h2>Welcome To The Quiz</h2>'
+         html += '<table  class="table1">' + cMap.join('') + '</table>';
+    //   console.log(html)
+          return html; 
+       }
+***********************************************
+
+
+       function getStyleByScore(contestant){
+console.log('getStyleByScore::>',contestant)
+if (contestant.score>0){
+    return 'morethanzero';
+}
+else if(contestant.score<0){
+    return 'lessthanzero'
+}
+else{
+    return 'r1'
+}
+       }
+**************************************************
+        function rightans(name){
+ console.log('name::<',name)
+let contestant=contestants.find(function(ele){
+    if(ele.name==name){
+        return true
+    }
+})
+contestant.score=contestant.score+2;
+show();
+if(contestant.score>0){
+let row=document.getElementById(name);
+//  console.log(row)
+ row.classList.add('morethanzero')
+ console.log(row)
+
+}
+}
+******************************************************
+
+       function wrongans(name){
+ console.log('name::<',name)
+let contestant=contestants.find(function(ele){
+    if(ele.name==name){
+        return true
+    }
+})
+contestant.score=contestant.score-1;
+console.log(contestant.score)
+show()
+if(contestant.score<0){
+ const row=document.getElementById(name);
+ console.log(row)
+ row.classList.add('lessthanzero')
+}
+ }
+
+
+
+
+show()
+
+    </script> 
+</body>
+</html>
+
+____________________________________________________________________________________________________
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+
+<body>
+    <div id="showdata"></div>
+    <script>
+        const products = [
+        { prod: 'Pepsi', price: 15, stock: 20 },
+        { prod: 'Coke', price: 18, stock: 30 },
+        { prod: 'Maggi', price: 10, stock: 35 },
+        { prod: 'Nescafe', price: 40, stock: 10 },
+        { prod: 'Dairy Milk', price: 30, stock: 12 },
+        { prod: 'Frito Lays', price: 20, stock: 15 }]
+
+
+        let myCart = []
+
+        function show() {
+            let s1 = showProduct()
+            let s2 = showCart()
+            let element = document.getElementById("showdata")
+            element.innerHTML = s1 + s2;
+        }
+        function showProduct() {
+            let pMap = products.map(function (ele) {
+                let str = '<tr>'
+                str += '<td>' + ele.prod + '</td>'
+                str += '<td>' + ele.price + '</td>'
+                str += '<td>' + ele.stock + '</td>'
+                str += '<td ><button class="add" onclick="addToCart(\'' + ele.prod + '\')" >Add To Cart</button></td>'
+
+                str += '</tr>'
+                //console.log(str)
+                return str;
+            })
+            let header = '<tr class="h1">'
+            header += '<th>Product Name</th>'
+            header += '<th>Price</th>'
+            header += '<th>Stock</th>'
+            header += '<th> </th>'
+            header += '</tr>'
+            let html = '<h2>LIST OF PRODUCT</h2>'
+            html += '<table class="table1">' + header + pMap.join('') + '</table>'
+            //console.log(html);
+            return html;
+        }
+**********************************************************************************
+        function showCart() {
+            let addMap = myCart.map(function (ele) {
+                let str = '<tr>'
+                str += '<td>' + ele.prod + '</td>'
+                str += '<td>' + ele.quantity + '</td>'
+                str += '<td>' + ele.price + '</td>'
+                str += '<td>' + ele.amount + '</td>'
+                str+='<td><button class="remove" onclick=" remove(\''+ele.prod+'\')">Remove from Cart</button></td>';
+
+                str += '</tr>'
+                //console.log(str)
+                return str;
+            })
+            let header = '<tr class="h1">'
+            header += '<th>Product Name</th>'
+            header += '<th>Quantity</th>'
+            header += '<th>Price</th>'
+            header += '<th>Amount</th>'
+            header += '<th> </th>'
+            header += '</tr>'
+            let html = '<h2>MYCART</h2>'
+            if(myCart.length==0){
+                html += '<h3>Cart is Empty</h3>';
+            }
+            else{
+                let countQuantity=myCart.reduce(function(acc,curr){
+                    return acc+curr.quantity;
+                },0);
+           console.log(countQuantity)
+                let countAmount=myCart.reduce(function(acc,curr){
+                    return acc+curr.amount;
+                },0)
+                html += '<h3>Number of item: '+countQuantity+' Bill Amount: '+countAmount+'</h3>';
+
+            }
+            html += '<table class="table1">' + header + addMap.join('') + '</table>'
+            console.log(html);
+            return html;
+
+        }
+*****************************************************
+        function addToCart(productName) {
+            console.log('productName::>',productName);
+            
+            const cartProduct = myCart.find((ele)=>ele.prod===productName);
+
+            console.log('cartProduct1::', cartProduct);
+            
+            if (cartProduct == undefined) {   
+               const productData = products.find((ele)=>ele.prod===productName);
+               const createCartData = {prod:productData.prod,quantity:1,price:productData.price,amount:productData.price};
+               myCart.push(createCartData);
+            }
+            else {
+                cartProduct.quantity = cartProduct.quantity + 1;
+                cartProduct.amount = cartProduct.price*cartProduct.quantity;
+            }
+            console.log('cartProduct2::', cartProduct);
+            console.log('myCart::>',myCart);
+            showCart();
+            show();
+        }   
+
+*****************************************************
+        function remove(product){
+            console.log(product)
+      console.log('myCart::>',myCart)
+      let index = myCart.findIndex(function(ele){
+       console.log(product)
+        return ele.prod==product
+
+      })
+      console.log(index);
+      if (index>=0){
+        myCart.splice(index,1)
+      }
+      showCart();
+      show();
+        }
+
+        show();
+
+    </script>
+</body>
+
+</html>
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Taking Input - Text, Dropdown
+
+empdata-------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='divDD'></div>
+    <button onClick='makeDD()'>Make DD</button>
+    <button onClick='showDD()'>Show DD Data</button>
+   <script>
+let empData=[
+    {name:'Steve',empId:'BM222'},
+    {name:'George',empId:'BM405'},
+    {name:'Mary',empId:'CT188'},
+    {name:'Anna',empId:'Ak534'},
+    {name:'Jack',empId:'CT029'},];
+
+    function showDD(){
+        let dd=document.getElementById('dd1');
+        console.log(dd.value)
+    }
+
+******************************************************************
+
+    function makeDD(){
+        let div=document.getElementById('divDD')
+        let html=makeDDOption(empData ,'Select Employee','CT188');
+        div.innerHTML=html;
+    }
+ function makeDDOption(arr , valOnTop, selVal){
+    const optArr=arr.map(function(opt){
+        if(opt.empId==selVal){
+            return '<option selected value =\''+opt.empId+'\'>'+opt.name+'</option>';
+        }
+        else{
+        return '<option value =\''+opt.empId+'\'>'+opt.name+'</option>';
+        }
+    });
+    let topStr='';
+    if (selVal==''){
+     topStr='<option selected disabled>'+valOnTop+'</option>';
+    }
+    else{
+        topStr='<option disabled>'+valOnTop+'</option>';
+    }
+    let str='<select id=\'dd1\'>'+topStr+optArr.join('')+'</select>';
+    console.log(str);
+    return str;
+ }
+
+   </script>
+  
+</body>
+</html>
+____________________________________________________________________________________________________
+
+Create a form to take name , age and course of student. And course id dropdown.
+On submit,show the details entered with edit option.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick='getData()'>Show Form</button>
+    <div id='dispArea'></div>
+    <script>
+        const courses=['Full Stack','Python','Android','Java'];
+
+*********************************************************
+        let data={};
+        function getData(){
+            let str= 'Name:<input type="text"  id="name"><br/>';
+            str+= 'Age:<input type="text"  id="age"><br/>';
+			
+            str+=makeCourseDD(courses,'Choose Course','')+'</br>';
+           str+='<button onClick=\'submit()\'>Submit</button>';
+           let div= document.getElementById('dispArea');
+          div.innerHTML=str;
+        }
+
+********************************************************
+
+        function makeCourseDD(arr , firstItem,selValue){
+            let arr1=arr.map(function(opt){
+                if(opt==selValue)
+                {
+                return '<option selected>'+opt+'</option>';
+                }
+                else
+             {
+                    return '<option>'+opt+'</option>';
+                }
+            })
+            let first= '<option disabled selected>'+firstItem+'</option>';
+       if(selValue!='')
+         first= '<option disabled >'+firstItem+'</option>';
+            let s1= '<select id="course">'+first+arr1.join('')+'</select>';
+            console.log(s1);
+            return s1;
+			
+********************************************************
+
+        }
+        function submit(){
+            data.name=document.getElementById('name').value;
+            data.age=document.getElementById('age').value;
+            data.course=document.getElementById('course').value;
+            let str='<h3>Name:'+data.name+'</h3>';
+            str+='<h3>Age:'+data.age+'</h3>';
+            str+='<h3>Course:'+data.course+'</h3>';
+            str+='<button onClick=\'edit()\'>Edit</button>';
+            let div= document.getElementById('dispArea');
+            div.innerHTML=str;
+        }
+
+
+********************************************************
+
+
+        function edit(){
+            let str= 'Name:<input type="text"  id="name" value="'+data.name+'"><br/>';
+            str+= 'Age:<input type="text"  id="age" value="'+data.age+'"><br/>';
+            str+=makeCourseDD(courses,'Choose Course',data.course)+'</br>';
+           str+='<button onClick=\'submit()\'>Submit</button>';
+           let div= document.getElementById('dispArea');
+          div.innerHTML=str;
+        }
+    </script>
+    
+</body>
+</html>
+
+
+__________________________________________________________________________
+
+The names, marks in Maths and Computers and coding preference of students have been provided in an array.
+Two button have been shown----
+.Show Students
+.Add New Student- shows a form to take the details of a new student.
+.Add and edit option while showing details of students.
+
+__________________________________________________________________________
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    
+    <div id='prod'></div>
+    <script>
+       function page(){
+        let str= 'Name:<input type="text"  id="name" ><br/>';
+            str+= 'Quantity:<input type="text"  id="quantity" ><br/>';
+            str+='<button onClick=\'addProduct()\'>Add Product</button>';
+           let div= document.getElementById('prod');
+          div.innerHTML=str+showData();
+       }
+ function showData(){
+    let makeTable=data.map(function(ele){
+    let str= '<tr>'
+        str+='<td>'+ele.name+'</td>'
+         str+='<td>'+ele.quantity+'</td>'
+          str+='<td><button onClick="remove(\''+ele.name+'\')">Remove</button></td>'
+             str+='<td><button onClick="edit(\''+ele.name+'\')">Edit</button></td>'
+
+         str+='</tr>'
+         return str;
+        })
+        let html='<table class="table1">'+makeTable.join('')+'</table>'
+return html;
+
+    }
+let data=[];
+        function addProduct(){
+            let product=document.getElementById("name");
+            // console.log(product.value);
+            let quanty=document.getElementById("quantity");
+            // console.log(quanty.value);
+
+         let details = {name:product.value,quantity:quanty.value};
+    //    console.log(data)
+            data.push(details);
+
+           page()
+       
+        }
+        function remove(name){
+          let index=data.findIndex(function(ele){
+           return ele.name==name;
+          })
+          data.splice(index,1)
+            console.log(data)
+          page()
+        }
+
+
+        page()
+        function edit(name){
+            let index=data.findIndex(function(ele){
+           return ele.name==name;
+          })
+            let str= 'Name:<input readonly type="text"  id="name" value="'+data[index].name+'"><br/>';
+            str+= 'Quantity:<input type="text"  id="quantity" value="'+data[index].quantity+'"><br/>';
+            str+='<button onClick=\'update()\'>Update</button>';
+           let div= document.getElementById('prod');
+          div.innerHTML=str+showData();
+        }
+
+        function update(){
+            let productName=document.getElementById("name").value;
+            console.log(productName)
+            let quanty=document.getElementById("quantity").value;
+            console.log(quanty)
+             let product=data.find(function(ele){
+               return ele.name== productName;
+             })
+             console.log(product)
+             product.quantity=quanty;
+             page()
+        }
+        
+   
+    </script>
+    
+</body>
+</html>
+
+
+__________________________________________________________________________
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    <div id="persons"></div>
+    <script>
+
+
+let data=[];
+function page(){
+        let str= 'Name:<input type="text"  id="name" ><br/>';
+            str+= 'Age:<input type="text"  id="age" ><br/>';
+            str+= 'City:<input type="text"  id="city" ><br/>';
+            str+= 'Technology:<input type="text"  id="technology" ><br/>';
+            str+='<button onClick=\'addPersons()\'>Add Persons</button>';
+            str+='<button onClick=\'removePersons()\'>Remove Persons</button><br/>';
+           let div= document.getElementById("persons");
+          div.innerHTML=str+showData();
+       }
+page();
+
+function addPersons(){
+    let name1=document.getElementById("name");
+            let age1=document.getElementById("age");
+            let city1=document.getElementById("city");
+            let technology1=document.getElementById("technology");
+
+            
+
+            if (nameExists(name1.value)) {
+        alert("Name already exists in the table.");
+        return;
+    }
+    else{
+        
+        let details = {name:name1.value,age:age1.value,city:city1.value,technology:technology1.value};
+        //  console.log(data)
+            data.push(details);
+            page();
+    }
+    function nameExists(name) {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].name.toLowerCase() === name.toLowerCase()) {
+            return true;
+        }
+    }
+    return false;
+}
+}
+function showData(){
+    let makeTable=data.map(function(ele){
+    let str= '<tr>'
+        str+='<td>'+ele.name+'</td>'
+         str+='<td>'+ele.age+'</td>'
+          str+='<td>'+ele.city+'</td>'
+           str+='<td>'+ele.technology+'</td>'
+         str+='</tr>'
+         return str;
+        })
+        let html='<table class="table1">'+makeTable.join('')+'</table>'
+return html;
+
+    }
+    function removePersons(name){
+        let name1=document.getElementById("name");
+            let age1=document.getElementById("age");
+            let city1=document.getElementById("city");
+            let technology1=document.getElementById("technology");
+if(nameExists(name1.value)){
+    let details = {name:name1.value,age:age1.value,city:city1.value,technology:technology1.value};
+        //  console.log(data)
+            data.pop(details);
+            page();
+}
+else{
+    alert("Name is not  exists in the table.");
+    return;
+}
+function nameExists(name) {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].name.toLowerCase() === name.toLowerCase()) {
+            return true;
+        }
+    }
+    return false;
+}
+}
+  
+    </script>
+</body>
+</html>
+
+
+__________________________________________________________________________
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    <div id="persons"></div>
+    <script>
+
+
+let data=[];
+// let array=[
+//     {name:'Jack',age:28,city:'London',technology:'Android'},
+//     {name:'Mary',age:32,city:'paris',technology:'React'},
+//     {name:'Bob',age:35,city:'New York',technology:'Angular'},
+//     {name:'Steve',age:26,city:'Delhi',technology:'Spring'},
+// ]
+
+const cityList=['London','Paris','Delhi','NewYork']
+const technologyList=['Android','React','Angular','Spring','Javascript'];
+
+function navigateTo(page) {
+            let div = document.getElementById("persons");
+            if (page === 'main') {
+                div.innerHTML = mainPage();
+            }
+             else {
+                if (page === 'manageCities') 
+            {
+                div.innerHTML = manageCities();
+            }
+            else if (page === 'manageTechs') {
+                div.innerHTML = manageTechs();
+            }
+           
+        }}
+
+   
+        function mainPage() {
+            let str = 'Name:<input type="text" id="name"><br/>';
+            str += 'Age:<input type="text" id="age"><br/>';
+            str += 'City' + cityDD(cityList, 'Choose City', '') + '<br/>';
+            str += 'Technology' + technologyDD(technologyList, 'Choose Technology', '') + '<br/>';
+            str += '<button onClick="addPersons()">Add Person</button>';
+            str += '<button onClick="removePersons()">Remove Person</button><br/>';
+            str += '<button onClick="navigateTo(\'manageCities\')">Manage Cities</button>';
+            str += '<button onClick="navigateTo(\'manageTechs\')">Manage Technologies</button><br/>';
+            return str + showData();
+        }
+
+// **************************************************************
+function addPersons(){
+    let name1=document.getElementById("name");
+            let age1=document.getElementById("age");
+            let city1=document.getElementById("city");
+            let technology1=document.getElementById("technology");
+            console.log(technology1.value)
+            if (nameExists(name1.value)) {
+        alert("Name already exists in the table.");
+        return;
+    }
+    else{
+        let details = {name:name1.value,age:age1.value,city:city1.value,technology:technology1.value};
+        //  console.log(data)
+            data.push(details);
+            page();
+    }
+    function nameExists(name) {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].name.toLowerCase() === name.toLowerCase()) {
+            return true;
+        }
+    }
+    return false;
+}
+}
+// ******************************************************************************
+function showData(){
+    let makeTable=data.map(function(ele){
+    let str= '<tr>'
+        str+='<td>'+ele.name+'</td>'
+         str+='<td>'+ele.age+'</td>'
+          str+='<td>'+ele.city+'</td>'
+           str+='<td>'+ele.technology+'</td>'
+         str+='</tr>'
+         return str;
+        })
+        let html='<table class="table1">'+makeTable.join('')+'</table>'
+return html;
+
+    }
+    // ****************************************************************************
+    function removePersons(name){
+        let name1=document.getElementById("name");
+            let age1=document.getElementById("age");
+            let city1=document.getElementById("city");
+            let technology1=document.getElementById("technology");
+if(nameExists(name1.value)){
+    let details = {name:name1.value,age:age1.value,city:city1.value,technology:technology1.value};
+        //  console.log(data)
+            data.pop(details);
+            page();
+}
+else{
+    alert("Name is not  exists in the table.");
+    return;
+}
+function nameExists(name) {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].name.toLowerCase() === name.toLowerCase()) 
+        {
+            return true;
+        }
+    }
+    return false;
+}
+}
+
+// ***************************************************************************
+// for cities
+function cityDD(arr , firstItem,selValue){
+            let arr1=arr.map(function(opt){
+                if(opt==selValue)
+                {
+                return '<option selected value =\''+opt+'\'>'+opt+'</option>';
+                }
+                else
+             {
+                    return '<option value =\''+opt+'\'>'+opt+'</option>';
+                }
+            })
+            let first= '<option disabled selected>'+firstItem+'</option>';
+       if(selValue!='')
+         first= '<option disabled >'+firstItem+'</option>';
+            let s1= '<select id="city">'+first+arr1.join('')+'</select>';
+             console.log(s1);
+            return s1;
+        }
+
+        function manageCities() {
+            let str = 'City:<input type="text" id="city1"><br/>';
+            str += '<button onClick="addCity()">Add City</button><br/>';
+            str += showCity();
+            str += '<button onClick="navigateTo(\'main\')">Show Main Form</button>';
+            return str;
+        }
+
+        function page() {
+            navigateTo('main');
+        }
+        page();
+
+        function showCity()
+        {
+    let  cityTable=cityList.map(function(ele){
+    let str= '<tr>'
+        str+='<td>'+ele+'</td>'
+        str += '<td><button onClick="removeCity()">Remove</button></td>';
+         str+='</tr>'
+         console.log(str)
+         return str;
+        })
+        let html='<table class="table1">'+ cityTable.join('')+'</table><br/>'
+        return html;
+    }
+    
+    function addCity(){
+        let newCity=document.getElementById("city1");
+        let cityDetails = {city:newCity.value};
+        console.log(cityDetails)
+      cityList.push(cityDetails.city);
+      console.log(cityList)
+      navigateTo('manageCities')
+    //  page();
+    }
+function removeCity(city2){
+    let index=cityList.findIndex(function(ele){
+           return ele.city==city2;
+          })
+          cityList.splice(index,1)
+            console.log(cityList)
+            // showCity()
+            navigateTo('manageCities')
+        }
+
+
+
+// ***************************************************
+// for techs 
+
+
+function  technologyDD(arr , firstItem,selValue){
+            let arr1=arr.map(function(opt){
+                if(opt==selValue)
+                {
+                return '<option selected value =\''+opt+'\'>'+opt+'</option>';
+                }
+                else
+             {
+                    return '<option value =\''+opt+'\'>'+opt+'</option>';
+                }
+            })
+            let first= '<option disabled selected>'+firstItem+'</option>';
+       if(selValue!='')
+         first= '<option disabled >'+firstItem+'</option>';
+            let s1= '<select id="technology">'+first+arr1.join('')+'</select>';
+             console.log(s1);
+            return s1;
+        }
+
+
+        function manageTechs() {
+            let str = 'Technology:<input type="text" id="technology1"><br/>';
+            str += '<button onClick="addTechs()">Add Technology</button><br/>';
+            str += showTechnology();
+            str += '<button onClick="navigateTo(\'main\')">Show Main Form</button>';
+            return str;
+        }
+
+        function page() {
+            navigateTo('main');
+        }
+        page();
+
+function showTechnology()
+        {
+    let  technologyTable=technologyList.map(function(ele){
+    let str= '<tr>'
+        str+='<td>'+ele+'</td>'
+        str += '<td><button onClick="removeTechs()">Remove</button></td>';
+         str+='</tr>'
+         console.log(str)
+         return str;
+        })
+        let html='<table class="table1">'+ technologyTable.join('')+'</table><br/>'
+        return html;
+    }
+
+ function addTechs(){
+        let newTechnology=document.getElementById("technology1");
+        let technologyDetails = {technology:newTechnology.value};
+        console.log(technologyDetails.technology)
+    technologyList.push(technologyDetails.technology);
+      console.log(technologyList)
+      navigateTo('manageTechs')
+    }
+    function removeTechs(tech){
+    let index=technologyList.findIndex(function(ele){
+           return ele.technology==tech;
+          })
+          technologyList.splice(index,1)
+            console.log(technologyList)
+            // showCity()
+            navigateTo('manageTechs')
+        }
+
+
+
+    </script>
+</body>
+</html>
+
+
+__________________________________________________________________________
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="persons"></div>
+    <script>
+        let array=[
+            {name:'Jack',oldWeight:65,newWeight:68},
+            {name:'Mary',oldWeight:55,newWeight:53},
+            {name:'Bob',oldWeight:71,newWeight:66},
+            {name:'Steve',oldWeight:62,newWeight:68},
+            {name:'James',oldWeight:81,newWeight:77},
+            {name:'Julia',oldWeight:52,newWeight:52},
+            {name:'Micheal',oldWeight:68,newWeight:68},
+            {name:'Bill',oldWeight:6,newWeight:61},
+            {name:'Sonny',oldWeight:61,newWeight:60},
+        ]
+
+        function iniPage(){
+        let iniMap=array.map(function(ele){
+            let str='New weight Between:<input  type="text"  id="minweight">';
+                str+='<input  type="text"  id="maxweight">'
+                str+='<tr>'
+                    str+='<td>'+ele.name+'</td>'
+                        str+='<td>'+ele.oldWeight+'</td>'
+                            str+='<td>'+ele.newWeight+'</td>'
+                            str+='</tr>'
+                            let div= document.getElementById('persons');
+                            div.innerHTML=str;
+
+        })
+        let header = '<tr>'
+    header+= '<th >Name</th>'
+        header+= '<th>Old Weight</th>'
+         header+= '<th>New Weight</th>'
+        header+='</tr>'
+        let html = '<table class="table1">' + header + iniMap.join('') + '</table>';
+          return html;
+    }
+    </script>
+</body>
+</html>
