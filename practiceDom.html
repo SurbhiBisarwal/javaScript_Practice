@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="persons"></div>
+    <script>
+        let array=[
+            {name:'Jack',oldWeight:65,newWeight:68},
+            {name:'Mary',oldWeight:55,newWeight:53},
+            {name:'Bob',oldWeight:71,newWeight:66},
+            {name:'Steve',oldWeight:62,newWeight:68},
+            {name:'James',oldWeight:81,newWeight:77},
+            {name:'Julia',oldWeight:52,newWeight:52},
+            {name:'Micheal',oldWeight:68,newWeight:68},
+            {name:'Bill',oldWeight:6,newWeight:61},
+            {name:'Sonny',oldWeight:61,newWeight:60},
+        ]
+
+        function iniPage(){
+            let str1='New weight Between:<input  type="text"  id="minweight">';
+                str1+='<input  type="text"  id="maxweight"><br/>'
+                str1+='<button>Filter</button>'
+        let iniMap=array.map(function(ele){
+            let str='<tr>'
+                    str+='<td>'+ele.name+'</td>'
+                        str+='<td>'+ele.oldWeight+'</td>'
+                            str+='<td>'+ele.newWeight+'</td>'
+                            str+='</tr>'
+                            return str;
+                          
+
+        })
+        let header = '<tr>'
+    header+= '<th >Name</th>'
+        header+= '<th>Old Weight</th>'
+         header+= '<th>New Weight</th>'
+        header+='</tr>'
+        let html = str1+'<table class="table1">' + header + iniMap.join('') + '</table>';
+        let div= document.getElementById('persons');
+        div.innerHTML=html;
+    }
+    iniPage();
+    </script>
+</body>
+</html>

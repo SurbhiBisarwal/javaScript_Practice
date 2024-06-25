@@ -1,0 +1,48 @@
+.table1{
+  
+   border-collapse:collapse;
+   border-spacing: 3px;
+    border: 2px solid black;
+    
+  
+ 
+}
+.h1{
+    border: 1px solid black;
+    text-align: center;
+    background-color: rgb(93, 0, 255);
+    color:white;
+}
+.r1{
+    background-color: aqua;
+    color:black;
+    border: 1px solid black;
+
+}
+td{
+    border: 1px solid black;
+    padding:5px;
+
+}
+th{
+    border: 1px solid white;
+    padding:5px;
+    
+}
+.morethanzero{
+    background-color: lightgreen;
+    color: black;
+}
+
+.lessthanzero{
+    background-color: lightpink;
+    color: black;
+}
+.add{
+    background-color: lightgreen;
+    color: black;
+}
+.remove{
+    background-color: lightcoral;
+    color: black;
+}
