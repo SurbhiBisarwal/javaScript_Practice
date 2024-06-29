@@ -4,46 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
 </head>
 <body>
-    <div id="persons"></div>
+    <h2>Product Details</h2>
+    <div id="ProductWeb"></div>
     <script>
-        let array=[
-            {name:'Jack',oldWeight:65,newWeight:68},
-            {name:'Mary',oldWeight:55,newWeight:53},
-            {name:'Bob',oldWeight:71,newWeight:66},
-            {name:'Steve',oldWeight:62,newWeight:68},
-            {name:'James',oldWeight:81,newWeight:77},
-            {name:'Julia',oldWeight:52,newWeight:52},
-            {name:'Micheal',oldWeight:68,newWeight:68},
-            {name:'Bill',oldWeight:6,newWeight:61},
-            {name:'Sonny',oldWeight:61,newWeight:60},
-        ]
+        let array = [
+            {"name": "Maggi", "price": 25, offers: ["Citi Credit Cards", "ICICI Card"]},
+            {"name": "Perk", "price": 10, offers: ["Axis Credit Cards", "PayTM"]},
+            {"name": "Gems", "price": 15, offers: ["SBI Card", "PhonePe", "PayTM"]},
+            {"name": "Lindt", "price": 90, offers: []},
+            {"name": "Nutties", "price": 12, offers: ["Citi Credit Cards "]},
+            {"name": "Pepsi", "price": 15, offers: ["PhonePe", "PayTM"]},
+            {"name": "Coca Cola", "price": 15, offers: ["SBI Card"]},
+            {"name": "Dairy Milk", "price": 10, offers: []}
+        ];
+// make table
+        function proTable() {
+            let details = array.map(function(ele,index) {
+                let str = '<tr>';
+                str += '<td>' ;
+                       str+='<table id="'+index+'"><tr><td>Name:'+ele.name+' Price:'+ele.price+'</td></tr>';
+                        str+='<tr><td><button onclick="showOffers(\'' + ele.name + '\')">show offer</button></td></tr></table>';
+                    str+= '</td>';
+                    
+                // str += '<td>' + ele.price + '</td>';
+                // str += '<td><button onclick="showOffers(\'' + ele.name + '\')">Show Offers</button></td>';
+                str += '</tr>';
+                
+            return str;
+            })
+            let html = '<table>'  + details.join('') + '</table>';
+            console.log('html::>',html)
+            document.getElementById('ProductWeb').innerHTML = html;
+        }
+        proTable();
+// show offers
+    function showOffers(productName) {
+        const index = array.findIndex(p => p.name === productName);
+        let product = array[index];
+        let offerHtmlStr = '';
+        if (product.offers.length > 0) {
+            const numberOfOffersStr = '<tr><td>' + product.offers.length + ' Offers from</td></tr>';
+            const offersString = product.offers.map(function (offer) {
+                return '<tr><td>' + offer + '</td></tr>';
+            });
+            offerHtmlStr = numberOfOffersStr + offersString.join('') ;
+           
+        }
+        else {
+            offerHtmlStr = '<tr><td>No Offers</td></tr>';
+        }
+        offerHtmlStr+= '<tr><td><button onclick="hideOffers(\'' + index + '\')">hide offer</button></td></tr>';
+        const ele = document.getElementById(index);
+        // console.log(ele.rows[0].outerHTML + offerHtmlStr)
+        ele.innerHTML = ele.rows[0].outerHTML + offerHtmlStr;
 
-        function iniPage(){
-            let str1='New weight Between:<input  type="text"  id="minweight">';
-                str1+='<input  type="text"  id="maxweight"><br/>'
-                str1+='<button>Filter</button>'
-        let iniMap=array.map(function(ele){
-            let str='<tr>'
-                    str+='<td>'+ele.name+'</td>'
-                        str+='<td>'+ele.oldWeight+'</td>'
-                            str+='<td>'+ele.newWeight+'</td>'
-                            str+='</tr>'
-                            return str;
-                          
-
-        })
-        let header = '<tr>'
-    header+= '<th >Name</th>'
-        header+= '<th>Old Weight</th>'
-         header+= '<th>New Weight</th>'
-        header+='</tr>'
-        let html = str1+'<table class="table1">' + header + iniMap.join('') + '</table>';
-        let div= document.getElementById('persons');
-        div.innerHTML=html;
     }
-    iniPage();
+function hideOffers(index){
+    const ele = document.getElementById(index);
+        console.log(ele.rows[0].outerHTML)
+        ele.innerHTML = ele.rows[0].outerHTML + '<tr><td><button onclick="showOffers(\'' + array[index].name + '\')">show offer</button></td></tr>';
+}
+
     </script>
 </body>
 </html>
