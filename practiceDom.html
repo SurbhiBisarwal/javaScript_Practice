@@ -3,71 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="dummy.css">
+    <title>Sum of Inputs</title>
+    <style>
+        .errMsg {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h2>Product Details</h2>
-    <div id="ProductWeb"></div>
+    Name:<input type="text" id="name1">
+    <span id="nameError" class="errMsg"></span><br>
+    Age:<input type="text" id="age1">
+    <span id="ageError" class="errMsg"></span><br>
+    City:<input type="text" id="city1">
+    <span id="cityError" class="errMsg"></span><br>
+    Technology:<input type="text" id="tech1">
+    <span id="techError" class="errMsg"></span><br>
+    <button onclick="addPerson()" id="btn1">Add Person</button>
+    
+    <div id="txt1"></div>
     <script>
         let array = [
-            {"name": "Maggi", "price": 25, offers: ["Citi Credit Cards", "ICICI Card"]},
-            {"name": "Perk", "price": 10, offers: ["Axis Credit Cards", "PayTM"]},
-            {"name": "Gems", "price": 15, offers: ["SBI Card", "PhonePe", "PayTM"]},
-            {"name": "Lindt", "price": 90, offers: []},
-            {"name": "Nutties", "price": 12, offers: ["Citi Credit Cards "]},
-            {"name": "Pepsi", "price": 15, offers: ["PhonePe", "PayTM"]},
-            {"name": "Coca Cola", "price": 15, offers: ["SBI Card"]},
-            {"name": "Dairy Milk", "price": 10, offers: []}
+            {name: "Jack", age: 28, city: "London", tech: "Android"},
+            {name: "Mary", age: 32, city: "Paris", tech: "React"},
+            {name: "Bob", age: 35, city: "New York", tech: "Angular"},
+            {name: "Steve", age: 26, city: "Delhi", tech: "Spring"}
         ];
-// make table
-        function proTable() {
-            let details = array.map(function(ele,index) {
-                let str = '<tr>';
-                str += '<td>' ;
-                       str+='<table id="'+index+'"><tr><td>Name:'+ele.name+' Price:'+ele.price+'</td></tr>';
-                        str+='<tr><td><button onclick="showOffers(\'' + ele.name + '\')">show offer</button></td></tr></table>';
-                    str+= '</td>';
-                    
-                // str += '<td>' + ele.price + '</td>';
-                // str += '<td><button onclick="showOffers(\'' + ele.name + '\')">Show Offers</button></td>';
-                str += '</tr>';
-                
-            return str;
-            })
-            let html = '<table>'  + details.join('') + '</table>';
-            console.log('html::>',html)
-            document.getElementById('ProductWeb').innerHTML = html;
-        }
-        proTable();
-// show offers
-    function showOffers(productName) {
-        const index = array.findIndex(p => p.name === productName);
-        let product = array[index];
-        let offerHtmlStr = '';
-        if (product.offers.length > 0) {
-            const numberOfOffersStr = '<tr><td>' + product.offers.length + ' Offers from</td></tr>';
-            const offersString = product.offers.map(function (offer) {
-                return '<tr><td>' + offer + '</td></tr>';
-            });
-            offerHtmlStr = numberOfOffersStr + offersString.join('') ;
-           
-        }
-        else {
-            offerHtmlStr = '<tr><td>No Offers</td></tr>';
-        }
-        offerHtmlStr+= '<tr><td><button onclick="hideOffers(\'' + index + '\')">hide offer</button></td></tr>';
-        const ele = document.getElementById(index);
-        // console.log(ele.rows[0].outerHTML + offerHtmlStr)
-        ele.innerHTML = ele.rows[0].outerHTML + offerHtmlStr;
 
-    }
-function hideOffers(index){
-    const ele = document.getElementById(index);
-        console.log(ele.rows[0].outerHTML)
-        ele.innerHTML = ele.rows[0].outerHTML + '<tr><td><button onclick="showOffers(\'' + array[index].name + '\')">show offer</button></td></tr>';
-}
+        function addPerson() {
+            let pName = document.getElementById("name1").value;
+            let pAge = parseInt(document.getElementById("age1").value);
+            let pCity = document.getElementById("city1").value;
+            let pTech = document.getElementById("tech1").value;
 
+            let nameError = document.getElementById("nameError");
+            let ageError = document.getElementById("ageError");
+            let cityError=document.getElementById("cityError");
+            let techError=document.getElementById("techError");
+            let btn = document.getElementById("btn1");
+
+            // Reset previous error messages
+            nameError.innerHTML = "";
+            ageError.innerHTML = "";
+            cityError.innerHTML="";
+            techError.innerHTML="";
+            btn.disabled = false;
+
+
+if(nameExists(pName) || pAge < 18 || !cityExists(pCity) || !techExists(pTech)){
+
+            if (nameExists(pName)) {
+                console.log('pName::>',pName);
+                nameError.innerHTML = "Name already exists, please choose another name";
+                btn.disabled = true;
+            }
+            if (pAge < 18) {
+                console.log('pAge::>',pAge);
+                ageError.innerHTML = "Age must be at least 18";
+                btn.disabled = true;
+            } 
+            
+            if(!cityExists(pCity))
+            {
+                console.log('pCity::>',pCity);
+                cityError.innerHTML = "Enter city from London,Paris,Delhi,NewYork ";
+                btn.disabled = true;
+            }
+            
+            if (!techExists(pTech)) {
+                console.log('pTech::>',pTech);
+                techError.innerHTML = "Enter tech from Android, React, Angular, Spring";
+                btn.disabled = true;
+            }
+        }else {
+                let person = {name: pName, age: pAge, city: pCity, tech: pTech};
+                array.push(person);
+                console.log(array);
+            }
+        }
+
+        function nameExists(name) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].name.toLowerCase() === name.toLowerCase()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        function cityExists(city) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].city.toLowerCase() === city.toLowerCase()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        function techExists(tech) {
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].tech.toLowerCase() === tech.toLowerCase()) {
+                    return true;
+                }
+            }
+            return false;
+        }
     </script>
 </body>
 </html>

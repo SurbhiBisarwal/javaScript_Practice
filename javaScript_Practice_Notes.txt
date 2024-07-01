@@ -1521,3 +1521,383 @@ __________________________________________________________________________
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    <button onclick="proMaster()">Product Master</button>
+    <button onclick="newProduct()">New Product</button>
+    <button onclick="purcMaster()"> Purchase Master</button>
+    <button onclick="newPurchase()">New Purchase</button><br/>
+
+    <div id="web"></div>
+   
+    <script>
+// ****************************product master
+        let productMaster=[
+            {ProductName:'Maggi',Category:'Food',BuyPrice:12,SellingPrice:20},
+            {ProductName:'Pepsi',Category:'Drink',BuyPrice:20,SellingPrice:30},
+            {ProductName:'Lays',Category:'Food',BuyPrice:20,SellingPrice:25},
+            {ProductName:'Pasta',Category:'Food',BuyPrice:30,SellingPrice:50},
+        ]
+
+        function proMaster(){
+            let details= productMaster.map(function(ele){
+                let str='<tr>';
+                    str+='<td>'+ele.ProductName+'</td>'
+                     str+='<td>'+ele.Category+'</td>'
+                      str+='<td>'+ele.BuyPrice+'</td>'
+                       str+='<td>'+ele.SellingPrice+'</td>'
+                       str+='</tr>'
+                       return str;
+            })
+            let header='<tr class="h1">';
+                header+='<th>Product Name</th>';
+                header+='<th>Category</th>';
+                header+='<th>Buy Price</th>';
+                header+='<th>Selling Price</th>';
+                let html = '<table class="table1">' + header + details.join('') + '</table>';
+        let div= document.getElementById('web');
+        div.innerHTML=html;
+        }
+
+// ************************    add new product **********display form
+let arrP=['Food', 'Soap', 'Shampoo','Toothpaste']
+function newProduct(){
+  let str='Product Name:<input type="text" id="pName"><br/>';
+  str+='Category' + categoryDD(arrP, 'Choose Category', '') + '<br/>';
+  str+='Buying Price:<input type="text" id="bPrice"><br/>';
+  str+='Selling Price:<input type="text" id="sPrice"><br/>';
+  str+='<button onclick="add()">Add</button>';
+ 
+  document.getElementById('web').innerHTML= str;
+}
+// *************************** function for dropDown of product list
+function categoryDD(arr , firstItem,selValue){
+            let arr1=arr.map(function(opt){
+                if(opt==selValue)
+                {
+                return '<option selected value =\''+opt+'\'>'+opt+'</option>';
+                }
+                else
+             {
+                    return '<option value =\''+opt+'\'>'+opt+'</option>';
+                }
+            })
+            let first= '<option disabled selected>'+firstItem+'</option>';
+       if(selValue!='')
+         first= '<option disabled >'+firstItem+'</option>';
+            let s1= '<select id="category">'+first+arr1.join('')+'</select>';
+            //  console.log(s1);
+            return s1;
+        }
+        // add product**************
+function add(){
+    let name1=document.getElementById("pName");
+            let cate=document.getElementById("category").value;
+            let buyP=parseInt(document.getElementById("bPrice").value);
+            let sellP=parseInt(document.getElementById("sPrice").value);
+      {
+        let details = {ProductName: name1.value, Category: cate, BuyPrice: buyP, SellingPrice: sellP};
+         console.log(productMaster)
+         productMaster.push(details);
+         proMaster();
+    }
+}
+// *************************for purchase master**************
+let purchaseMaster=[
+    {purchaseProduct:'Maggi',quantity:2},
+    {purchaseProduct:'Pasta',quantity:1},
+]
+function purcMaster() {
+            let details = purchaseMaster.map(function (ele) {
+                let product = productMaster.find(p => p.ProductName === ele.purchaseProduct);
+                let price = product ? product.SellingPrice : 0;
+                let value = price * ele.quantity;
+
+                let str = '<tr>';
+                str += '<td>' + ele.purchaseProduct + '</td>';
+                str += '<td>' + ele.quantity + '</td>';
+                str += '<td>' + price + '</td>';
+                str += '<td>' + value + '</td>';
+                str += '</tr>';
+                return str;
+            });
+
+            let header = '<tr class="h1">';
+            header += '<th>Product</th>';
+            header += '<th>Quantity</th>';
+            header += '<th>Price</th>';
+            header += '<th>Value</th>';
+            header += '</tr>';
+
+            let html = '<table class="table1">' + header + details.join('') + '</table>';
+            document.getElementById('web').innerHTML = html;
+        }
+ // Function to create product dropdown
+ function productDD(arr, firstItem) {
+            let arr1 = arr.map(function(opt) {
+                return '<option value=\'' + opt.ProductName + '\'>' + opt.ProductName + '</option>';
+            });
+            let first = '<option disabled selected>' + firstItem + '</option>';
+            let s1 = '<select id="purchaseProduct">' + first + arr1.join('') + '</select>';
+            return s1;
+        }
+        // Function to display New Purchase form
+        function newPurchase() {
+            let str = 'Product: ' + productDD(productMaster, 'Choose Product') + '<br/>';
+            str += 'Quantity: <input type="text" id="quantity"><br/>';
+            str += '<button onclick="addPurchase()">Add Purchase</button>';
+            document.getElementById('web').innerHTML = str;
+        }
+
+
+         // Function to add purchase
+         function addPurchase() {
+            let product = document.getElementById("purchaseProduct").value;
+            let quantity = parseInt(document.getElementById("quantity").value);
+            let details = {purchaseProduct: product, quantity: quantity};
+            purchaseMaster.push(details);
+            purcMaster();
+        }
+    </script>
+</body>
+</html>
+----------------------------------------------------------
+EVENTS 
+__________________________________________
+EXAMPLE-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h4 id="title1" 
+ 
+    >
+    Checking Events</h4>
+    text1:<input type="text" id="txt1"
+    onchange="change(this)"
+    onkeydown="keydown(this)"
+    onkeypress="keypress(this)"
+    onkeyup="keyup(this)"
+   
+    onfocus="focusin(this)"
+    onblur="focusout(this)"
+    >
+    <br/>
+    <button id="btn1">Button</button>
+<br/>
+<select id="dd1">
+    <option>Apple</option>
+    <option>Aeroplane</option>
+    <option>Banana</option>
+    <option>Bat</option>
+    <option>Ball</option>
+    <option>Cat</option>
+</select>
+<script>
+    function change(elem){
+      console.log("onchange",elem.id,event)  
+    }
+    function mouseover(elem){
+      console.log("onmouseover",elem.id,event)  
+    }
+    function mouseout(elem){
+      console.log("onmouseout",elem.id,event)  
+    }
+    function mousemove(elem){
+      console.log("onmousemove",elem.id,event)  
+    }
+    function clicked(elem){
+      console.log("clicked",elem.id,event)  
+    }
+    function keydown(elem){
+      console.log("onkeydown",elem.id,event)  
+    }
+    function keypress(elem){
+      console.log("onkeypress",elem.id,event)  
+    }
+    function keyup(elem){
+      console.log("onkeyup",elem.id,event)  
+    }
+    function focusin(elem){
+      console.log("onfocus",elem.id,event)  
+    }
+    function focusout(elem){
+      console.log("onblur",elem.id,event)  
+    }
+</script>
+</body>
+</html>
+__________________________________________________________________________
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    TEXT:<input type="text" id="txt1" placeholder="Enter text" onblur="check(this)"><br>
+    <div id="d1"></div>
+    <button id="btn1" type="button">Submit</button>
+    <script>
+        function check(elem) {
+            let txt = elem.value;
+            let errDiv = document.getElementById("d1");
+            let btn = document.getElementById("btn1");
+
+            if (txt.length < 6) {
+                errDiv.innerHTML = "Name should be at least 6 characters";
+                errDiv.className = "errMsg";
+                btn.disabled = true;
+            } else {
+                errDiv.innerHTML = "";
+                errDiv.className = "";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
+____________________________________________________________________________________________________<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    TEXT:<input type="text" id="txt1"onkeyup="keyup(this)"><br/>
+    <div id="d1"></div>
+    <script>
+        function keyup(elem){
+            let txt = elem.value;
+            let div=document.getElementById("d1");
+            div.innerHTML=txt;
+            if(txt.length<4)
+            div.className="c1";
+            else if (txt.length<8)
+                div.className="c2";
+            else
+                div.className="c3";
+            
+        }
+    </script>
+</body>
+</html>
+__________________________________________________________________________
+
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+<body>
+    Payment Option<br/>
+    <div id="payments"></div>
+    <script>
+        const paymentOption = [
+            {"type": "Credit Card", "providers": ["ICICI Bank", "HDFC Bank", "Citibank", "SBI", "Amex"]},
+            {"type": "Net Banking", "providers": ["SBI", "BoI", "HDFC Bank", "Axis Bank", "Kotak Bank"]},
+            {"type": "Wallet", "providers": ["Paytm", "Google Pay", "Phone pe", "Amazon Pay"]}
+        ];
+
+        showPaymentOptions()
+function showPaymentOptions(){
+    const arr1=paymentOption.map(function(p1){
+        return p1.type;
+    });
+    let dd1=makeDDfn("dd1",arr1,'','Select Payment Method','payChange');
+    let div1=document.getElementById("payments");
+    div1.innerHTML=dd1
+}
+
+function payChange(elem){
+    let selOpt=elem.value
+    const arr1=paymentOption.map(function(p1){
+        return p1.type;
+    });
+    let dd1=makeDDfn("dd1",arr1,selOpt,'Select Payment Method','payChange');
+    let json1=paymentOption.find(function(p1){
+        return p1.type==selOpt;
+    })
+let dd2=makeDDfn("dd2",json1.providers,'','Select','');
+
+    let div1=document.getElementById("payments");
+    div1.innerHTML=dd1+dd2;
+}
+
+        function makeDDfn(id, data, selectedVal, valOnTop,onChangeFn) {
+            let dataMap = data.map(function(opt) {
+                if(opt === selectedVal) {
+                    return '<option selected>' + opt + '</option>';
+                } else {
+                    return '<option>' + opt + '</option>';
+                }
+            });
+            let first = '<option value=\'\' disabled>' + valOnTop + '</option>';
+            if(selectedVal === '') {
+                first = '<option value=\'\' selected disabled>' + valOnTop + '</option>';
+            }
+            let ddHtml = '<select id=\'' + id + '\'>';
+                if(onChangeFn!=''){
+                    ddHtml='<select id=\'' + id + '\' onchange=\''+onChangeFn+'(this)\'>';
+                }
+            ddHtml += first + dataMap.join('') + '</select>';
+            return ddHtml;
+        }
+
+           </script>
+</body>
+</html>
+__________________________________________________________________________
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum of Inputs</title>
+</head>
+<body>
+    <div id="sum"></div>
+    <input type="number" id="n1" placeholder="Number 1" oninput="calculateSum()"> +
+    <input type="number" id="n2" placeholder="Number 2" oninput="calculateSum()"> =
+    <input type="text" id="n" placeholder="Sum" readonly>
+    <script>
+        function calculateSum() {
+            const num1 = document.getElementById("n1").value;
+            const num2 = document.getElementById("n2").value;
+
+            // Check if the inputs are valid numbers
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById("n").value = "Input correct numbers";
+                return;
+            }
+
+            const number1 = parseFloat(num1) || 0;
+            const number2 = parseFloat(num2) || 0;
+            const sum = number1 + number2;
+            
+            document.getElementById("n").value = sum;
+        }
+    </script>
+</body>
+</html>
+
+
+

@@ -11,3 +11,19 @@ table,tr {
     border: 1px solid black;
     margin: 5px;
   }
+  .errMsg{
+    background-color: brown;
+    color: black;
+  }
+  .c1{
+    background-color: blue;
+    color: white;
+  }
+  .c2{
+    background-color: green;
+    color: white;
+  }
+  .c3{
+    background-color: blueviolet;
+    color: white;
+  }
