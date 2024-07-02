@@ -3,84 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dev page</title>
-   <link rel="stylesheet" href="dummy.css">
+    <title>Length Converter</title>
+    <style>
+        .converter {
+            border: 1px solid black;
+            display: inline-block;
+            padding: 10px;
+            text-align: center;
+        }
+        .converter input, .converter select {
+            width: 100px;
+            margin: 5px;
+        }
+        .converter table {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <select id="txt1">
-            <option value="name">Name starts with</option>
-            <option value="city">City starts with</option>
-            <option value="tech">Tech starts with</option>
-            <option value="any">Name, City, or Tech starts with</option>
-            <option value="present">Present anywhere in Name,City,Tech </option>
-        </select>
-        <input type="text" id="txt2" placeholder="Enter a filter string" onkeyup="keyup(this)">
+    <div class="converter">
+        <h3>Convert Lengths</h3>
+        <table>
+            <tr>
+                <td><input type="number" id="input1" value="1" oninput="convert()"></td>
+                <td><input type="number" id="input2" value="1" oninput="convert()"></td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="unit1" onchange="convert()">
+                        <option value="kilometer">Kilometer</option>
+                        <option value="meter">Meter</option>
+                        <option value="centimeter">Centimeter</option>
+                        <option value="millimeter">Millimeter</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="unit2" onchange="convert()">
+                        <option value="kilometer">Kilometer</option>
+                        <option value="meter">Meter</option>
+                        <option value="centimeter">Centimeter</option>
+                        <option value="millimeter">Millimeter</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
     </div>
-    
-    <div id="txt"></div>
     <script>
-        let array = [
-        {name:"Jack",age:28,city:"London",tech:"Node JS"}, 
-        {name:"Mary",age:32,city:"Mumbai",tech:"React JS"},
-        {name:"Bob",age:35,city:"New York",tech:"Angular JS"},
-        {name:"Steve",age:26,city:"NewDelhi",tech:"Javascript JS"},
-        {name:"Edwards",age:27,city:"Los Angeles",tech:"Node JS"},
-        {name:"Catherine",age:31,city:"Montreal",tech:"React JS"},
-        {name:"Williams",age:34,city:"New York",tech:"Android"},
-        {name:"John",age:25,city:"Moscow",tech:"Java"},
-        {name:"Anna",age:33,city:"Moscow",tech:"Node JS"},
-        {name:"Julia",age:29,city:"New Jersey",tech:"Android"}]
+        const conversionFactors = {
+            kilometer: 1,
+            meter: 1000,
+            centimeter: 100000,
+            millimeter: 1000000
+        };
 
-        function arr(arr){
-            let arrMap= arr.map(function(ele){
-                let str='<tr>';
-                    str+='<td>'+ele.name+'</td>'
-                     str+='<td>'+ele.age+'</td>'
-                      str+='<td>'+ele.city+'</td>'
-                       str+='<td>'+ele.tech+'</td>'
-                       str+='</tr>'
-                       return str;
-            })
-            let header='<tr >';
-                header+='<th>Name</th>';
-                header+='<th>Age</th>';
-                header+='<th>City</th>';
-                header+='<th>Tech</th>';
-                let html = '<table class="table1">' + header + arrMap.join('') + '</table>';
-        let div= document.getElementById('txt');
-        div.innerHTML=html;
-        }
-        arr(array);
-        function keyup(elem){
-           const filterChar= document.getElementById('txt1').value;
-           console.log(filterChar);
-            const filterText= document.getElementById('txt2').value;
-            console.log(filterText);
-            let filteredValue;
-            if (filterChar === 'any') {
-                filteredValue = array.filter(data => 
-                    data.name.toLowerCase().startsWith(filterText) ||
-                    data.city.toLowerCase().startsWith(filterText) ||
-                    data.tech.toLowerCase().startsWith(filterText)
-                );
-            } 
-            else if (filterChar === 'present') {
-                filteredValue = array.filter(data => 
-                    data.name.toLowerCase().includes(filterText) ||
-                    data.city.toLowerCase().includes(filterText) ||
-                    data.tech.toLowerCase().includes(filterText)
-                );
-            }
-            else {
-                filteredValue = array.filter(data => 
-                    data[filterChar].toLowerCase().startsWith(filterText)
-                );
-            }
+        function convert() {
+            const input1 = document.getElementById('input1').value;
+            const unit1 = document.getElementById('unit1').value;
+            const unit2 = document.getElementById('unit2').value;
 
-            arr(filteredValue); 
+            const valueInMeters = input1 * conversionFactors[unit1];
+            const convertedValue = valueInMeters / conversionFactors[unit2];
+
+            document.getElementById('input2').value = convertedValue;
         }
-       
     </script>
 </body>
 </html>
