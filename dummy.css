@@ -1,29 +1,24 @@
-td{
-    border: 1px solid aqua;
-    color: black;
+table {
+  width: 50%;
+  border-collapse: separate;
+  background-color: aquamarine;
 }
-tr{
-    border: 1px solid red !important; 
-    margin: 5px;
+table, th, td {
+  border: 1px solid black;
+  padding: 4px;
+  text-align: center;
+  
 }
+th {
+  background-color: black;
+  color: beige;
 
-table,tr {
-    border: 1px solid black;
-    margin: 5px;
-  }
-  .errMsg{
-    background-color: brown;
-    color: black;
-  }
-  .c1{
-    background-color: blue;
-    color: white;
-  }
-  .c2{
-    background-color: green;
-    color: white;
-  }
-  .c3{
-    background-color: blueviolet;
-    color: white;
-  }
+}
+td {
+  background-color:aqua;
+  color: black;
+
+}
+.filter-container {
+  margin-bottom: 10px;
+}
