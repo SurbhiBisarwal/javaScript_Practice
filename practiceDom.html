@@ -3,68 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Length Converter</title>
-    <style>
-        .converter {
-            border: 1px solid black;
-            display: inline-block;
-            padding: 10px;
-            text-align: center;
-        }
-        .converter input, .converter select {
-            width: 100px;
-            margin: 5px;
-        }
-        .converter table {
-            width: 100%;
-        }
-    </style>
+    <title>Document</title>
+    <h4>Ques=2 A. Create 4 checkboxes to take the choice of subjects from a student. 
+        The 4 checkboxes are Mathematics, Physics, Chemistry and English.Add a button below the checkboxes.
+         Display the status of all the checkboxes when the button is clicked.************
+        B.  Ensure that Mathematics and English are checked when the page loads</h4>
 </head>
 <body>
-    <div class="converter">
-        <h3>Convert Lengths</h3>
-        <table>
-            <tr>
-                <td><input type="number" id="input1" value="1" oninput="convert()"></td>
-                <td><input type="number" id="input2" value="1" oninput="convert()"></td>
-            </tr>
-            <tr>
-                <td>
-                    <select id="unit1" onchange="convert()">
-                        <option value="kilometer">Kilometer</option>
-                        <option value="meter">Meter</option>
-                        <option value="centimeter">Centimeter</option>
-                        <option value="millimeter">Millimeter</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="unit2" onchange="convert()">
-                        <option value="kilometer">Kilometer</option>
-                        <option value="meter">Meter</option>
-                        <option value="centimeter">Centimeter</option>
-                        <option value="millimeter">Millimeter</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <input type="checkbox" id="c1" checked>Mathematics<br/>
+    <input type="checkbox" id="c2">Physics<br/>
+    <input type="checkbox" id="c3">Chemistry<br/>
+    <input type="checkbox" id="c4" checked>English<br/>
+    <button onclick="showStatus()">Show Status</button>
     <script>
-        const conversionFactors = {
-            kilometer: 1,
-            meter: 1000,
-            centimeter: 100000,
-            millimeter: 1000000
-        };
-
-        function convert() {
-            const input1 = document.getElementById('input1').value;
-            const unit1 = document.getElementById('unit1').value;
-            const unit2 = document.getElementById('unit2').value;
-
-            const valueInMeters = input1 * conversionFactors[unit1];
-            const convertedValue = valueInMeters / conversionFactors[unit2];
-
-            document.getElementById('input2').value = convertedValue;
+        function showStatus(){
+            let Math=document.getElementById('c1');
+            let Phy=document.getElementById('c2');
+            let Chem=document.getElementById('c3');
+            let Eng=document.getElementById('c4');
+            console.log('Math',c1.checked);
+            console.log('Phy',c2.checked);
+            console.log('Chem',c3.checked);
+            console.log('Eng',c4.checked)
         }
     </script>
 </body>
