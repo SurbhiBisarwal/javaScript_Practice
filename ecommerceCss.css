@@ -1,0 +1,126 @@
+/* Container */
+.container {
+  border-style: solid;
+  margin: 3px;
+}
+
+/* Header */
+.header-bg {
+  background-color: green;
+}
+
+.header-logo {
+  width: 100%;
+  height: 150px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  gap: 2px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  background-color: #5d0e07;
+  border-radius: 5px;
+}
+
+.nav-links a:hover {
+  background-color: #7f1409;
+}
+
+/* Search Bar */
+.search-bar {
+  background-color: yellowgreen;
+  border: solid;
+  padding: 10px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-input {
+  height: 20px;
+}
+
+.right-links {
+  display: flex;
+  gap: 10px;
+}
+
+.right-links a {
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  background-color: #5d0e07;
+  border-radius: 5px;
+}
+
+.right-links a:hover {
+  background-color: #7f1409;
+}
+
+/* Images Row */
+.image-row {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  padding: 10px;
+}
+
+.image-row img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Shop Button */
+.shop-btn-container {
+  text-align: center;
+}
+
+.shop-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: yellowgreen;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.shop-btn:hover {
+  background-color: green;
+}
+
+/* Footer */
+.footer {
+  background-color: lightgrey;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.footer-icons a {
+  cursor: pointer;
+}
+
+.footer-icons svg {
+  fill: #5d0e07;
+  width: 24px;
+  height: 24px;
+  transition: fill 0.3s ease;
+}
+
+.footer-icons a:hover svg {
+  fill: #7f1409;
+}
